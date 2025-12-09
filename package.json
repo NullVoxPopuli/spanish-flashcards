@@ -57,5 +57,9 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "ember-strict-application-resolver": "^0.1.0",
+    "ember-truth-helpers": "^5.0.0"
   }
 }

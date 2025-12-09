@@ -1,4 +1,4 @@
-type Card = Vocab | Phrase | Conjugation | Picture | FillInTheBlank;
+export type Card = Vocab | Phrase | Conjugation | Picture | FillInTheBlank;
 
 interface Vocab {
   type: "vocab";
