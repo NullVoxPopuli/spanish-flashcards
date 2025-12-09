@@ -6,7 +6,7 @@ import { fn } from '@ember/helper';
 import type RouterService from '@ember/routing/router-service';
 import type CardProgressService from '#app/services/card-progress.ts';
 
-export default class IndexRoute extends Component {
+export default class HomePage extends Component {
   @service declare router: RouterService;
   @service('card-progress') declare cardProgress: CardProgressService;
 
