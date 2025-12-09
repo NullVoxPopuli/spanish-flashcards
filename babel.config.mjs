@@ -1,14 +1,11 @@
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import {
-  babelCompatSupport,
-  templateCompatSupport,
-} from '@embroider/compat/babel';
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { babelCompatSupport, templateCompatSupport } from "@embroider/compat/babel";
 
 export default {
   plugins: [
     [
-      '@babel/plugin-transform-typescript',
+      "@babel/plugin-transform-typescript",
       {
         allExtensions: true,
         onlyRemoveTypeImports: true,
@@ -16,27 +13,27 @@ export default {
       },
     ],
     [
-      'babel-plugin-ember-template-compilation',
+      "babel-plugin-ember-template-compilation",
       {
-        compilerPath: 'ember-source/dist/ember-template-compiler.js',
+        compilerPath: "ember-source/dist/ember-template-compiler.js",
         enableLegacyModules: [
-          'ember-cli-htmlbars',
-          'ember-cli-htmlbars-inline-precompile',
-          'htmlbars-inline-precompile',
+          "ember-cli-htmlbars",
+          "ember-cli-htmlbars-inline-precompile",
+          "htmlbars-inline-precompile",
         ],
         transforms: [...templateCompatSupport()],
       },
     ],
     [
-      'module:decorator-transforms',
+      "module:decorator-transforms",
       {
         runtime: {
-          import: import.meta.resolve('decorator-transforms/runtime-esm'),
+          import: import.meta.resolve("decorator-transforms/runtime-esm"),
         },
       },
     ],
     [
-      '@babel/plugin-transform-runtime',
+      "@babel/plugin-transform-runtime",
       {
         absoluteRuntime: dirname(fileURLToPath(import.meta.url)),
         useESModules: true,

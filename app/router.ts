@@ -1,5 +1,5 @@
-import EmberRouter from '@embroider/router';
-import config from 'spanish-flashcards/config/environment';
+import EmberRouter from "@embroider/router";
+import config from "spanish-flashcards/config/environment";
 
 export default class Router extends EmberRouter {
   location = config.locationType;

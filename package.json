@@ -17,6 +17,10 @@
     "./*": "./app/*"
   },
   "scripts": {
+    "format": "prettier . --cache --write",
+    "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
+    "lint:fix": "concurrently \"pnpm:lint:*:fix\" --names \"fix:\" --prefixColors auto && pnpm format",
+    "lint:format": "prettier . --cache --check",
     "build": "vite build",
     "dev": "vite",
     "lint:types": "ember-tsc --noEmit",
@@ -43,6 +47,8 @@
     "babel-plugin-ember-template-compilation": "^3.0.1",
     "decorator-transforms": "^2.3.0",
     "ember-source": "~6.10.0-alpha.1",
+    "prettier": "^3.7.4",
+    "prettier-plugin-ember-template-tag": "^2.1.2",
     "typescript": "^5.9.3",
     "vite": "^7.1.9"
   },
