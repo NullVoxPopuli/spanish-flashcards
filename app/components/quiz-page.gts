@@ -202,6 +202,12 @@ export default class QuizPage extends Component<QuizPageSignature> {
           overflow: hidden;
         }
       }
+
+      @media (max-height: 500px) {
+        .quiz-container {
+          padding: 0.25rem;
+        }
+      }
     </style>
   </template>
 }

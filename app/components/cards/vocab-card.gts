@@ -269,6 +269,44 @@ export default class VocabCard extends Component<VocabCardSignature> {
           font-size: clamp(0.625rem, 2vw, 0.875rem);
         }
       }
+
+      @media (max-height: 500px) {
+        .flashcard-container {
+          padding: 0.25rem;
+          gap: 0.25rem;
+        }
+
+        .flashcard {
+          max-height: 75vh;
+          aspect-ratio: 16/9;
+        }
+
+        .card-text {
+          font-size: clamp(1.125rem, 4vh, 1.5rem);
+          padding: 0 0.25rem;
+        }
+
+        .card-type {
+          font-size: 0.625rem;
+          top: 0.25rem;
+          left: 0.25rem;
+        }
+
+        .card-hint {
+          font-size: 0.75rem;
+          bottom: 0.25rem;
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+          padding: 0.5rem 0.25rem;
+        }
+
+        .btn {
+          padding: 0.625rem 0.25rem;
+          font-size: 0.75rem;
+        }
+      }
     </style>
   </template>
 }

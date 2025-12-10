@@ -73,6 +73,22 @@ export default class QuizHeader extends Component<QuizHeaderSignature> {
           font-size: clamp(0.75rem, 2vw, 0.875rem);
         }
       }
+
+      @media (max-height: 500px) {
+        .quiz-header {
+          gap: 0.25rem;
+          margin-bottom: 0.125rem;
+        }
+
+        .btn-back {
+          font-size: 0.75rem;
+          padding: 0.25rem 0.5rem;
+        }
+
+        .quiz-mode {
+          font-size: 0.75rem;
+        }
+      }
     </style>
   </template>
 }
