@@ -5,8 +5,9 @@ import cards from '#app/spanish.ts';
 
 interface CardProgress {
   cardIndex: number;
-  correctCount: number;
-  incorrectCount: number;
+  consecutiveCorrect: number;
+  totalCorrect: number;
+  totalIncorrect: number;
   mastered: boolean;
   lastReviewed?: number;
 }
@@ -16,7 +17,7 @@ interface ProgressData {
 }
 
 const STORAGE_KEY = 'spanish-flashcards-progress';
-const MASTERY_THRESHOLD = 3; // Need 3 correct in a row to master
+const MASTERY_THRESHOLD = 10; // Need 10 correct in a row to master
 
 export default class CardProgressService extends Service {
   @tracked progressData: ProgressData;
@@ -55,23 +56,24 @@ export default class CardProgressService extends Service {
     if (!this.progressData.cards[key]) {
       this.progressData.cards[key] = {
         cardIndex,
-        correctCount: 0,
-        incorrectCount: 0,
+        consecutiveCorrect: 0,
+        totalCorrect: 0,
+        totalIncorrect: 0,
         mastered: false,
       };
     }
-    return this.progressData.cards[key];
+    return this.progressData.cards[key]!;
   }
 
   recordCorrect(cardIndex: number): void {
     const progress = this.getCardProgress(cardIndex);
-    progress.correctCount++;
+    progress.consecutiveCorrect++;
+    progress.totalCorrect++;
     progress.lastReviewed = Date.now();
 
-    // Check if card is mastered (3 correct in a row means no recent incorrect)
-    if (progress.correctCount >= MASTERY_THRESHOLD &&
-        (progress.incorrectCount === 0 || progress.correctCount - progress.incorrectCount >= MASTERY_THRESHOLD)) {
-      progress.mastered = false; // Will be set via recordMastered
+    // Check if card is mastered (10 correct in a row)
+    if (progress.consecutiveCorrect >= MASTERY_THRESHOLD) {
+      progress.mastered = true;
     }
 
     this.progressData = { ...this.progressData };
@@ -80,15 +82,14 @@ export default class CardProgressService extends Service {
 
   recordIncorrect(cardIndex: number): void {
     const progress = this.getCardProgress(cardIndex);
-    progress.incorrectCount++;
+    progress.consecutiveCorrect = 0; // Reset consecutive counter
+    progress.totalIncorrect++;
     progress.lastReviewed = Date.now();
     progress.mastered = false; // Reset mastery on incorrect answer
 
     this.progressData = { ...this.progressData };
     this.saveProgress();
-  }
-
-  recordMastered(cardIndex: number): void {
+  }  recordMastered(cardIndex: number): void {
     const progress = this.getCardProgress(cardIndex);
     progress.mastered = true;
     progress.lastReviewed = Date.now();

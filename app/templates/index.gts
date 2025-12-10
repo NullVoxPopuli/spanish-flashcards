@@ -35,17 +35,6 @@ export default class IndexRoute extends Component {
         <p class="subtitle">Master your Spanish vocabulary and phrases</p>
       </div>
 
-      <div class="progress-card">
-        <h2>Your Progress</h2>
-        <div class="progress-bar">
-          <div class="progress-fill" style="width: {{this.cardProgress.progressPercentage}}%"></div>
-        </div>
-        <p class="progress-text">
-          {{this.cardProgress.masteredCount}} / {{this.cardProgress.totalCards}} cards mastered
-          ({{this.cardProgress.progressPercentage}}%)
-        </p>
-      </div>
-
       <div class="quiz-modes">
         <h2>Choose Your Quiz Mode</h2>
         <div class="mode-buttons">
@@ -54,7 +43,7 @@ export default class IndexRoute extends Component {
             type="button"
             {{on 'click' (fn this.startQuiz 'english-to-spanish')}}
           >
-            <div class="mode-icon">🇺🇸 → 🇪🇸</div>
+            <div class="mode-icon">EN → ES</div>
             <h3>English to Spanish</h3>
             <p>See the English word, recall the Spanish</p>
           </button>
@@ -64,7 +53,7 @@ export default class IndexRoute extends Component {
             type="button"
             {{on 'click' (fn this.startQuiz 'spanish-to-english')}}
           >
-            <div class="mode-icon">🇪🇸 → 🇺🇸</div>
+            <div class="mode-icon">ES → EN</div>
             <h3>Spanish to English</h3>
             <p>See the Spanish word, recall the English</p>
           </button>
@@ -74,7 +63,7 @@ export default class IndexRoute extends Component {
             type="button"
             {{on 'click' (fn this.startQuiz 'random')}}
           >
-            <div class="mode-icon">🔀</div>
+            <div class="mode-icon">↔</div>
             <h3>Random</h3>
             <p>Mix it up! Either direction randomly</p>
           </button>
@@ -114,41 +103,6 @@ export default class IndexRoute extends Component {
         font-size: 1.25rem;
         color: #718096;
         margin-top: 0.5rem;
-      }
-
-      .progress-card {
-        background: white;
-        border-radius: 12px;
-        padding: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 3rem;
-      }
-
-      .progress-card h2 {
-        margin-top: 0;
-        color: #2d3748;
-      }
-
-      .progress-bar {
-        width: 100%;
-        height: 24px;
-        background: #e2e8f0;
-        border-radius: 12px;
-        overflow: hidden;
-        margin: 1rem 0;
-      }
-
-      .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #48bb78, #38a169);
-        transition: width 0.3s ease;
-      }
-
-      .progress-text {
-        text-align: center;
-        color: #4a5568;
-        font-weight: 600;
-        margin: 0;
       }
 
       .quiz-modes h2 {
