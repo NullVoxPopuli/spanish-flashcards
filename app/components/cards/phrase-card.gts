@@ -275,6 +275,80 @@ export default class PhraseCard extends Component<PhraseCardSignature> {
         }
       }
 
+      @media (max-width: 640px) and (max-aspect-ratio: 3/4) {
+        .flashcard-container {
+          gap: 1rem;
+          padding: 0;
+          flex: 1;
+          min-height: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          width: 100%;
+        }
+
+        .flashcard {
+          width: 100% !important;
+          height: auto !important;
+          min-height: unset !important;
+          max-height: none !important;
+          aspect-ratio: unset !important;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .flashcard-inner {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .card-text {
+          font-size: 2.5rem !important;
+          padding: 2rem 1.5rem !important;
+          line-height: 1.3;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          hyphens: auto;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .card-type {
+          font-size: 1.125rem !important;
+          top: 1rem;
+          left: 1rem;
+        }
+
+        .card-hint {
+          font-size: 1.125rem !important;
+          bottom: 1rem;
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+          padding: 0 !important;
+          border-radius: 0 !important;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .flashcard-actions {
+          gap: 1rem;
+          flex-shrink: 0;
+          width: 100%;
+        }
+
+        .btn {
+          padding: 1.75rem 1.5rem !important;
+          font-size: 1.5rem !important;
+        }
+      }
+
       @media (max-height: 500px) {
         .flashcard-container {
           padding: 0.25rem;

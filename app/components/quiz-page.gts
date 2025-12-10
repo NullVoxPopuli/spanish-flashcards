@@ -195,7 +195,7 @@ export default class QuizPage extends Component<QuizPageSignature> {
 
       @media (max-width: 640px) {
         .quiz-container {
-          padding: 0.5rem;
+          padding: 0;
           height: 100vh;
           display: flex;
           flex-direction: column;

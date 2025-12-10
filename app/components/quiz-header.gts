@@ -74,6 +74,22 @@ export default class QuizHeader extends Component<QuizHeaderSignature> {
         }
       }
 
+      @media (max-width: 640px) and (max-aspect-ratio: 3/4) {
+        .quiz-header {
+          gap: 0.75rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .btn-back {
+          font-size: 1rem;
+          padding: 0.5rem 0.75rem;
+        }
+
+        .quiz-mode {
+          font-size: 1rem;
+        }
+      }
+
       @media (max-height: 500px) {
         .quiz-header {
           gap: 0.25rem;

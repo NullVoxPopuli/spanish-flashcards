@@ -5,7 +5,7 @@ import { scopedCSS } from 'ember-scoped-css/vite';
 
 export default defineConfig({
   plugins: [
-    scopedCSS(),
+    scopedCSS({ additionalRoots: ['templates']}),
 
     ember(),
     // extra plugins here

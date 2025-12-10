@@ -7,7 +7,7 @@ const macros = buildMacros();
 
 export default {
   plugins: [
-        scopedCSS(),
+        scopedCSS({ additionalRoots: ['templates']}),
     [
       '@babel/plugin-transform-typescript',
       {
@@ -20,7 +20,7 @@ export default {
       'babel-plugin-ember-template-compilation',
       {
         compilerPath: 'ember-source/dist/ember-template-compiler.js',
-        transforms: [...macros.templateMacros, scopedCSS.template({})],
+        transforms: [...macros.templateMacros, scopedCSS.template({ additionalRoots: ['templates']})],
       },
     ],
     [
