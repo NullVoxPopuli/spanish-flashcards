@@ -11,26 +11,26 @@ interface QuizCompletionSignature {
 }
 
 export default class QuizCompletion extends Component<QuizCompletionSignature> {
-  get isFullyMastered(): boolean {
-    return this.args.cardProgress.masteredCount === this.args.cardProgress.totalCards;
+  get isFullyLearned(): boolean {
+    return this.args.cardProgress.learnedCount === this.args.cardProgress.totalCards;
   }
 
   <template>
     <div class="completion-card">
       <div class="completion-icon">🎉</div>
       <h1>Quiz Complete!</h1>
-      <p class="completion-text">
-        Great job! You've reviewed all the unmastered cards in this session.
-        {{#if this.isFullyMastered}}
-          <br /><strong>Congratulations! You've mastered all cards!</strong>
+      <p class="completion-message">
+        Great job! You've reviewed all the unlearned cards in this session.
+        {{#if this.isFullyLearned}}
+          <br /><strong>Congratulations! You've learned all cards!</strong>
         {{else}}
-          <br />Keep practicing to master all {{@cardProgress.totalCards}} cards.
+          <br />Keep practicing to learn all {{@cardProgress.totalCards}} cards.
         {{/if}}
       </p>
       <div class="completion-stats">
         <div class="stat">
-          <div class="stat-value">{{@cardProgress.masteredCount}}</div>
-          <div class="stat-label">Cards Mastered</div>
+          <div class="stat-value">{{@cardProgress.learnedCount}}</div>
+          <div class="stat-label">Cards Learned</div>
         </div>
         <div class="stat">
           <div class="stat-value">{{@cardProgress.progressPercentage}}%</div>
@@ -47,7 +47,7 @@ export default class QuizCompletion extends Component<QuizCompletionSignature> {
       </div>
     </div>
 
-    <style>
+    <style scoped>
       .completion-card {
         background: white;
         border-radius: 12px;
@@ -137,9 +137,34 @@ export default class QuizCompletion extends Component<QuizCompletionSignature> {
       }
 
       @media (max-width: 640px) {
+        .completion-card {
+          padding: 2rem 1rem;
+          margin-top: 2rem;
+        }
+
+        .completion-icon {
+          font-size: 3rem;
+        }
+
+        .completion-card h1 {
+          font-size: 1.5rem;
+        }
+
+        .completion-message {
+          font-size: 0.875rem;
+        }
+
         .completion-stats {
           flex-direction: column;
           gap: 1rem;
+        }
+
+        .stat-value {
+          font-size: 2rem;
+        }
+
+        .btn {
+          width: 100%;
         }
       }
     </style>

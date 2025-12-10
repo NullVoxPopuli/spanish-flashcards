@@ -204,7 +204,7 @@ export default class QuizRoute extends Component<QuizSignature> {
       {{/if}}
     </div>
 
-    <style>
+    <style scoped>
       .quiz-container {
         max-width: 800px;
         margin: 0 auto;

@@ -23,21 +23,21 @@ export default class QuizPage extends Component<QuizPageSignature> {
   @tracked currentCardIndex = 0;
   @tracked showEnglish = true;
   @tracked isComplete = false;
-  @tracked masteredInSession = new Set<number>();
+  @tracked learnedInSession = new Set<number>();
 
   initialQuizCards: number[];
 
   constructor(owner: any, args: QuizPageSignature['Args']) {
     super(owner, args);
 
-    // Get unmastered cards
-    const unmasteredCards = this.cardProgress.getUnmasteredCards();
+    // Get unlearned cards
+    const unlearnedCards = this.cardProgress.getUnlearnedCards();
 
-    if (unmasteredCards.length === 0) {
-      // If all cards are mastered, use all cards
+    if (unlearnedCards.length === 0) {
+      // If all cards are learned, use all cards
       this.initialQuizCards = cards.map((_, index) => index);
     } else {
-      this.initialQuizCards = unmasteredCards;
+      this.initialQuizCards = unlearnedCards;
     }
 
     // Shuffle the cards
@@ -57,7 +57,7 @@ export default class QuizPage extends Component<QuizPageSignature> {
 
   get quizCards(): number[] {
     return this.initialQuizCards.filter(
-      (cardIndex) => !this.masteredInSession.has(cardIndex)
+      (cardIndex) => !this.learnedInSession.has(cardIndex)
     );
   }
 
@@ -86,21 +86,21 @@ export default class QuizPage extends Component<QuizPageSignature> {
   handleCorrect(): void {
     const cardIndex = this.currentCardOriginalIndex;
     this.cardProgress.recordCorrect(cardIndex);
-    
-    // Check if this card just became mastered
+
+    // Check if this card just became learned
     const progress = this.cardProgress.getCardProgress(cardIndex);
-    if (progress.mastered) {
-      // Remove from session since it's now mastered
-      this.masteredInSession.add(cardIndex);
-      this.masteredInSession = new Set(this.masteredInSession);
-      
-      // Check if all cards are now mastered
+    if (progress.learned) {
+      // Remove from session since it's now learned
+      this.learnedInSession.add(cardIndex);
+      this.learnedInSession = new Set(this.learnedInSession);
+
+      // Check if all cards are now learned
       if (this.quizCards.length === 0) {
         this.isComplete = true;
         return;
       }
     }
-    
+
     this.nextCard();
   }
 
@@ -111,15 +111,15 @@ export default class QuizPage extends Component<QuizPageSignature> {
   }
 
   @action
-  handleMastered(): void {
+  handleLearned(): void {
     const cardIndex = this.currentCardOriginalIndex;
-    this.cardProgress.recordMastered(cardIndex);
-    
-    // Remove this card from the session
-    this.masteredInSession.add(cardIndex);
-    this.masteredInSession = new Set(this.masteredInSession);
+    this.cardProgress.recordLearned(cardIndex);
 
-    // Check if all cards are now mastered
+    // Remove this card from the session
+    this.learnedInSession.add(cardIndex);
+    this.learnedInSession = new Set(this.learnedInSession);
+
+    // Check if all cards are now learned
     if (this.quizCards.length === 0) {
       this.isComplete = true;
     }
@@ -152,7 +152,7 @@ export default class QuizPage extends Component<QuizPageSignature> {
   restartQuiz(): void {
     this.currentCardIndex = 0;
     this.isComplete = false;
-    this.masteredInSession = new Set();
+    this.learnedInSession = new Set();
 
     // Re-randomize for random mode
     if (this.args.mode === 'random') {
@@ -180,18 +180,27 @@ export default class QuizPage extends Component<QuizPageSignature> {
             @showEnglish={{this.showEnglish}}
             @onCorrect={{this.handleCorrect}}
             @onIncorrect={{this.handleIncorrect}}
-            @onMastered={{this.handleMastered}}
+            @onLearned={{this.handleLearned}}
           />
         {{/if}}
       {{/if}}
     </div>
 
-    <style>
+    <style scoped>
       .quiz-container {
         max-width: 800px;
         margin: 0 auto;
         padding: 2rem;
-        min-height: 100vh;
+      }
+
+      @media (max-width: 640px) {
+        .quiz-container {
+          padding: 0.5rem;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+          overflow: hidden;
+        }
       }
     </style>
   </template>

@@ -4,7 +4,7 @@
     {{outlet}}
   </div>
 
-  <style>
+  <style scoped>
     * {
       box-sizing: border-box;
     }
@@ -22,6 +22,20 @@
 
     .app-container {
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        overflow: hidden;
+      }
+
+      .app-container {
+        min-height: 100vh;
+        max-height: 100vh;
+        overflow: hidden;
+      }
     }
 
     h1, h2, h3, h4, h5, h6 {

@@ -8,7 +8,7 @@ interface CardProgress {
   consecutiveCorrect: number;
   totalCorrect: number;
   totalIncorrect: number;
-  mastered: boolean;
+  learned: boolean;
   lastReviewed?: number;
 }
 
@@ -17,7 +17,7 @@ interface ProgressData {
 }
 
 const STORAGE_KEY = 'spanish-flashcards-progress';
-const MASTERY_THRESHOLD = 10; // Need 10 correct in a row to master
+const LEARNED_THRESHOLD = 10; // Need 10 correct in a row to mark as learned
 
 export default class CardProgressService extends Service {
   @tracked progressData: ProgressData;
@@ -59,7 +59,7 @@ export default class CardProgressService extends Service {
         consecutiveCorrect: 0,
         totalCorrect: 0,
         totalIncorrect: 0,
-        mastered: false,
+        learned: false,
       };
     }
     return this.progressData.cards[key]!;
@@ -71,9 +71,9 @@ export default class CardProgressService extends Service {
     progress.totalCorrect++;
     progress.lastReviewed = Date.now();
 
-    // Check if card is mastered (10 correct in a row)
-    if (progress.consecutiveCorrect >= MASTERY_THRESHOLD) {
-      progress.mastered = true;
+    // Check if card is learned (10 correct in a row)
+    if (progress.consecutiveCorrect >= LEARNED_THRESHOLD) {
+      progress.learned = true;
     }
 
     this.progressData = { ...this.progressData };
@@ -85,23 +85,23 @@ export default class CardProgressService extends Service {
     progress.consecutiveCorrect = 0; // Reset consecutive counter
     progress.totalIncorrect++;
     progress.lastReviewed = Date.now();
-    progress.mastered = false; // Reset mastery on incorrect answer
+    progress.learned = false; // Reset learned status on incorrect answer
 
     this.progressData = { ...this.progressData };
     this.saveProgress();
-  }  recordMastered(cardIndex: number): void {
+  }  recordLearned(cardIndex: number): void {
     const progress = this.getCardProgress(cardIndex);
-    progress.mastered = true;
+    progress.learned = true;
     progress.lastReviewed = Date.now();
 
     this.progressData = { ...this.progressData };
     this.saveProgress();
   }
 
-  getUnmasteredCards(): number[] {
+  getUnlearnedCards(): number[] {
     return cards
       .map((_, index) => index)
-      .filter(index => !this.getCardProgress(index).mastered);
+      .filter(index => !this.getCardProgress(index).learned);
   }
 
   getAllProgress(): CardProgress[] {
@@ -117,12 +117,12 @@ export default class CardProgressService extends Service {
     return cards.length;
   }
 
-  get masteredCount(): number {
-    return this.getAllProgress().filter(p => p.mastered).length;
+  get learnedCount(): number {
+    return this.getAllProgress().filter(p => p.learned).length;
   }
 
   get progressPercentage(): number {
-    return Math.round((this.masteredCount / this.totalCards) * 100);
+    return Math.round((this.learnedCount / this.totalCards) * 100);
   }
 }
 

@@ -59,6 +59,7 @@
     "edition": "octane"
   },
   "dependencies": {
+    "ember-scoped-css": "^2.0.4",
     "ember-strict-application-resolver": "^0.1.1",
     "ember-truth-helpers": "^5.0.0"
   }

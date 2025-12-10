@@ -92,7 +92,7 @@ export default class HomePage extends Component {
       </div>
     </div>
 
-    <style>
+    <style scoped>
       .home-container {
         max-width: 800px;
         margin: 0 auto;

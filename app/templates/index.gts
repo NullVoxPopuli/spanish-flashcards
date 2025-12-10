@@ -32,7 +32,7 @@ export default class IndexRoute extends Component {
     <div class="home-container">
       <div class="header">
         <h1>Spanish Flashcards</h1>
-        <p class="subtitle">Master your Spanish vocabulary and phrases</p>
+        <p class="subtitle">Learn Spanish vocabulary and phrases</p>
       </div>
 
       <div class="quiz-modes">
@@ -81,7 +81,7 @@ export default class IndexRoute extends Component {
       </div>
     </div>
 
-    <style>
+    <style scoped>
       .home-container {
         max-width: 800px;
         margin: 0 auto;
@@ -172,12 +172,44 @@ export default class IndexRoute extends Component {
       }
 
       @media (max-width: 640px) {
+        .home-container {
+          padding: 1rem;
+        }
+
+        .header {
+          margin-bottom: 2rem;
+        }
+
         .header h1 {
           font-size: 2rem;
         }
 
+        .subtitle {
+          font-size: 1rem;
+        }
+
+        .quiz-modes h2 {
+          font-size: 1.25rem;
+          margin-bottom: 1rem;
+        }
+
         .mode-buttons {
           grid-template-columns: 1fr;
+          gap: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .mode-btn {
+          padding: 1.5rem 1rem;
+        }
+
+        .mode-icon {
+          font-size: 2rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .mode-btn h3 {
+          font-size: 1.125rem;
         }
       }
     </style>

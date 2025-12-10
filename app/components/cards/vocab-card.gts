@@ -10,7 +10,7 @@ interface VocabCardSignature {
     showEnglish: boolean;
     onCorrect: () => void;
     onIncorrect: () => void;
-    onMastered: () => void;
+    onLearned: () => void;
   };
 }
 
@@ -47,10 +47,10 @@ export default class VocabCard extends Component<VocabCardSignature> {
   }
 
   @action
-  handleMastered(): void {
+  handleLearned(): void {
     this.isFlipped = false;
     setTimeout(() => {
-      this.args.onMastered();
+      this.args.onLearned();
     }, 600);
   }
 
@@ -75,23 +75,24 @@ export default class VocabCard extends Component<VocabCardSignature> {
           <button class="btn btn-success" type="button" {{on 'click' this.handleCorrect}}>
             ✓ Correct
           </button>
-          <button class="btn btn-error" type="button" {{on 'click' this.handleIncorrect}}>
+          <button class="btn btn-incorrect" type="button" {{on 'click' this.handleIncorrect}}>
             ✗ Incorrect
           </button>
-          <button class="btn btn-mastered" type="button" {{on 'click' this.handleMastered}}>
-            ★ Mastered
+          <button class="btn btn-learned" type="button" {{on 'click' this.handleLearned}}>
+            ★ I Know This
           </button>
         </div>
       {{/if}}
     </div>
 
-    <style>
+    <style scoped>
       .flashcard-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 2rem;
         padding: 2rem;
+        min-height: 100%;
       }
 
       .flashcard {
@@ -99,6 +100,7 @@ export default class VocabCard extends Component<VocabCardSignature> {
         height: 300px;
         perspective: 1000px;
         cursor: pointer;
+        flex-shrink: 0;
       }
 
       .flashcard-inner {
@@ -200,23 +202,71 @@ export default class VocabCard extends Component<VocabCardSignature> {
         color: white;
       }
 
-      .btn-error:hover {
-        background: #e53e3e;
+      .btn-incorrect:hover {
+        background: #f56565;
+        transform: scale(1.05);
       }
 
-      .btn-mastered {
-        background: #ed8936;
+      .btn-learned {
+        background: #fbbf24;
         color: white;
       }
 
-      .btn-mastered:hover {
-        background: #dd6b20;
+      .btn-learned:hover {
+        background: #f59e0b;
+        transform: scale(1.05);
       }
 
       @media (max-width: 640px) {
+        .flashcard-container {
+          padding: 0.5rem;
+          gap: 0.5rem;
+          height: 100%;
+          justify-content: center;
+        }
+
         .flashcard {
-          width: 90vw;
-          max-width: 400px;
+          width: 100%;
+          max-width: 100%;
+          height: auto;
+          max-height: 50vh;
+          aspect-ratio: 4/3;
+          flex-shrink: 1;
+        }
+
+        .card-text {
+          font-size: clamp(1rem, 4vw, 1.5rem);
+          padding: 0 0.5rem;
+        }
+
+        .card-type {
+          font-size: 0.625rem;
+          top: 0.5rem;
+          left: 0.5rem;
+        }
+
+        .card-hint {
+          font-size: 0.75rem;
+          bottom: 0.5rem;
+        }
+
+        .flashcard-front,
+        .flashcard-back {
+          padding: 0.75rem 0.5rem;
+        }
+
+        .flashcard-actions {
+          gap: 0.5rem;
+          width: 100%;
+          padding: 0;
+          flex-shrink: 0;
+        }
+
+        .btn {
+          flex: 1;
+          min-width: 0;
+          padding: clamp(0.5rem, 2vh, 1rem) 0.25rem;
+          font-size: clamp(0.625rem, 2vw, 0.875rem);
         }
       }
     </style>

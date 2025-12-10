@@ -9,7 +9,7 @@ interface FlashcardSignature {
     showEnglish: boolean;
     onCorrect: () => void;
     onIncorrect: () => void;
-    onMastered: () => void;
+    onLearned: () => void;
   };
 }
 
@@ -55,7 +55,7 @@ export default class FlashcardComponent extends Component<FlashcardSignature> {
           @showEnglish={{@showEnglish}}
           @onCorrect={{@onCorrect}}
           @onIncorrect={{@onIncorrect}}
-          @onMastered={{@onMastered}}
+          @onLearned={{@onLearned}}
         />
       {{/if}}
     {{else if this.isPhrase}}
@@ -66,11 +66,9 @@ export default class FlashcardComponent extends Component<FlashcardSignature> {
           @showEnglish={{@showEnglish}}
           @onCorrect={{@onCorrect}}
           @onIncorrect={{@onIncorrect}}
-          @onMastered={{@onMastered}}
+          @onLearned={{@onLearned}}
         />
       {{/if}}
-    {{else}}
-      <div>Unsupported card type: {{@card.type}}</div>
     {{/if}}
   </template>
 }

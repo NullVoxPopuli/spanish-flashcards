@@ -29,7 +29,7 @@ export default class QuizHeader extends Component<QuizHeaderSignature> {
       </div>
     </div>
 
-    <style>
+    <style scoped>
       .quiz-header {
         display: flex;
         align-items: center;
@@ -55,6 +55,23 @@ export default class QuizHeader extends Component<QuizHeaderSignature> {
         font-size: 1.125rem;
         font-weight: 600;
         color: #2d3748;
+      }
+
+      @media (max-width: 640px) {
+        .quiz-header {
+          gap: 0.5rem;
+          margin-bottom: 0.25rem;
+          flex-shrink: 0;
+        }
+
+        .btn-back {
+          font-size: clamp(0.75rem, 2vw, 0.875rem);
+          padding: 0.25rem 0.5rem;
+        }
+
+        .quiz-mode {
+          font-size: clamp(0.75rem, 2vw, 0.875rem);
+        }
       }
     </style>
   </template>
