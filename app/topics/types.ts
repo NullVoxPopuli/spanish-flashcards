@@ -8,8 +8,8 @@ interface Vocab {
 
 interface Phrase {
   type: "phrase";
-  spanish: string | string[];
-  english: string | string[];
+  spanish: string;
+  english: string;
 }
 
 interface Conjugation {
@@ -35,4 +35,3 @@ interface FillInTheBlank {
 export function cards(cards: Card[]): Card[] {
   return cards;
 }
-

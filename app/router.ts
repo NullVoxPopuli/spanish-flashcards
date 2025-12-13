@@ -7,7 +7,7 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('quiz-english-to-spanish');
-  this.route('quiz-spanish-to-english');
-  this.route('quiz-random');
+  this.route("quiz-english-to-spanish");
+  this.route("quiz-spanish-to-english");
+  this.route("quiz-random");
 });
