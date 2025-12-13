@@ -2,24 +2,12 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { on } from '@ember/modifier';
-import { fn } from '@ember/helper';
-import type RouterService from '@ember/routing/router-service';
+import { properLinks } from 'ember-primitives/proper-links';
 import type CardProgressService from '#app/services/card-progress.ts';
 
+@properLinks
 export default class IndexRoute extends Component {
-  @service declare router: RouterService;
   @service('card-progress') declare cardProgress: CardProgressService;
-
-  @action
-  startQuiz(mode: 'english-to-spanish' | 'spanish-to-english' | 'random'): void {
-    if (mode === 'english-to-spanish') {
-      this.router.transitionTo('quiz-english-to-spanish');
-    } else if (mode === 'spanish-to-english') {
-      this.router.transitionTo('quiz-spanish-to-english');
-    } else {
-      this.router.transitionTo('quiz-random');
-    }
-  }
 
   @action
   resetProgress(): void {
@@ -38,35 +26,23 @@ export default class IndexRoute extends Component {
       <div class="quiz-modes">
         <h2>Choose Your Quiz Mode</h2>
         <div class="mode-buttons">
-          <button
-            class="mode-btn"
-            type="button"
-            {{on 'click' (fn this.startQuiz 'english-to-spanish')}}
-          >
+          <a href="/quiz/english-to-spanish" class="mode-btn">
             <div class="mode-icon">EN → ES</div>
             <h3>English to Spanish</h3>
             <p>See the English word, recall the Spanish</p>
-          </button>
+          </a>
 
-          <button
-            class="mode-btn"
-            type="button"
-            {{on 'click' (fn this.startQuiz 'spanish-to-english')}}
-          >
+          <a href="/quiz/spanish-to-english" class="mode-btn">
             <div class="mode-icon">ES → EN</div>
             <h3>Spanish to English</h3>
             <p>See the Spanish word, recall the English</p>
-          </button>
+          </a>
 
-          <button
-            class="mode-btn"
-            type="button"
-            {{on 'click' (fn this.startQuiz 'random')}}
-          >
+          <a href="/quiz/random" class="mode-btn">
             <div class="mode-icon">↔</div>
             <h3>Random</h3>
             <p>Mix it up! Either direction randomly</p>
-          </button>
+          </a>
         </div>
       </div>
 
@@ -119,6 +95,7 @@ export default class IndexRoute extends Component {
       }
 
       .mode-btn {
+        display: block;
         background: white;
         border: 2px solid #e2e8f0;
         border-radius: 12px;
@@ -126,6 +103,8 @@ export default class IndexRoute extends Component {
         cursor: pointer;
         transition: all 0.2s;
         text-align: center;
+        text-decoration: none;
+        color: inherit;
       }
 
       .mode-btn:hover {
