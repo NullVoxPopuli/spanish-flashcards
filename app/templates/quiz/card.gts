@@ -114,15 +114,20 @@ export default class QuizCardRoute extends Component<QuizCardSignature> {
   }
 
   nextCard(): void {
-    // Calculate the next card number
-    let nextCardNumber = this.cardNumber + 1;
+    // Pick a random card from the remaining unlearned cards
+    const availableIndices = this.quizCards
+      .map((_, idx) => idx)
+      .filter(idx => !this.learnedInSession.has(this.quizCards[idx]!));
 
-    // If we've gone through all remaining cards, cycle back to the beginning
-    if (nextCardNumber >= this.remainingCards.length) {
-      nextCardNumber = 0;
+    if (availableIndices.length === 0) {
+      return;
     }
 
-    // Navigate to the next card
+    // Pick random index from available cards
+    const randomIndex = Math.floor(Math.random() * availableIndices.length);
+    const nextCardNumber = availableIndices[randomIndex]!;
+
+    // Navigate to the next random card
     this.router.transitionTo('quiz.card', this.kind, nextCardNumber);
   }
 
