@@ -1,19 +1,13 @@
 <template>
-  <div class="quiz-container">
+  <div style="max-inline-size: var(--size-content-3); margin-inline: auto; padding: var(--size-5);">
     {{outlet}}
   </div>
 
   <style scoped>
-    .quiz-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-
-    @media (max-width: 640px) {
-      .quiz-container {
+    @media (width <= 640px) {
+      div {
         padding: 0;
-        height: 100vh;
+        block-size: 100vh;
         display: flex;
         flex-direction: column;
       }

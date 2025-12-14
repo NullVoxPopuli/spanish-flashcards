@@ -4,4 +4,4 @@ import type { Card } from '#app/topics/types.ts';
 // Combine all topics into a single array of cards
 const allCards: Card[] = Object.values(topics).flat();
 
-export default allCards;
+export { allCards as default };

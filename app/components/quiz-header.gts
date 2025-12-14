@@ -20,90 +20,38 @@ export default class QuizHeader extends Component<QuizHeaderSignature> {
   }
 
   <template>
-    <div class="quiz-header">
-      <button class="btn-back" type="button" {{on 'click' @onBack}}>
+    <div style="display: flex; align-items: center; gap: var(--size-5); margin-block-end: var(--size-3);">
+      <button
+        type="button"
+        {{on 'click' @onBack}}
+        style="background: transparent; border: none; color: var(--gray-8); font-size: var(--font-size-2); cursor: pointer; padding: var(--size-2);"
+      >
         ← Back
       </button>
-      <div class="quiz-mode">
+      <div style="font-size: var(--font-size-2); font-weight: var(--font-weight-6); color: var(--gray-9);">
         {{this.modeLabel}}
       </div>
     </div>
 
     <style scoped>
-      .quiz-header {
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-        margin-bottom: 1rem;
+      button:hover { color: var(--gray-9); }
+
+      @media (width <= 640px) {
+        div { gap: var(--size-2); margin-block-end: var(--size-1); flex-shrink: 0; }
+        button, div > div { font-size: clamp(var(--font-size-0), 2vw, var(--font-size-1)); }
+        button { padding: var(--size-1) var(--size-2); }
       }
 
-      .btn-back {
-        background: transparent;
-        border: none;
-        color: #4a5568;
-        font-size: 1rem;
-        cursor: pointer;
-        padding: 0.5rem;
-        transition: color 0.2s;
+      @media (width <= 640px) and (max-aspect-ratio: 3/4) {
+        div { gap: var(--size-3); margin-block-end: var(--size-2); }
+        button, div > div { font-size: var(--font-size-2); }
+        button { padding: var(--size-2) var(--size-3); }
       }
 
-      .btn-back:hover {
-        color: #2d3748;
-      }
-
-      .quiz-mode {
-        font-size: 1.125rem;
-        font-weight: 600;
-        color: #2d3748;
-      }
-
-      @media (max-width: 640px) {
-        .quiz-header {
-          gap: 0.5rem;
-          margin-bottom: 0.25rem;
-          flex-shrink: 0;
-        }
-
-        .btn-back {
-          font-size: clamp(0.75rem, 2vw, 0.875rem);
-          padding: 0.25rem 0.5rem;
-        }
-
-        .quiz-mode {
-          font-size: clamp(0.75rem, 2vw, 0.875rem);
-        }
-      }
-
-      @media (max-width: 640px) and (max-aspect-ratio: 3/4) {
-        .quiz-header {
-          gap: 0.75rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .btn-back {
-          font-size: 1rem;
-          padding: 0.5rem 0.75rem;
-        }
-
-        .quiz-mode {
-          font-size: 1rem;
-        }
-      }
-
-      @media (max-height: 500px) {
-        .quiz-header {
-          gap: 0.25rem;
-          margin-bottom: 0.125rem;
-        }
-
-        .btn-back {
-          font-size: 0.75rem;
-          padding: 0.25rem 0.5rem;
-        }
-
-        .quiz-mode {
-          font-size: 0.75rem;
-        }
+      @media (height <= 500px) {
+        div { gap: var(--size-1); margin-block-end: var(--size-00); }
+        button, div > div { font-size: var(--font-size-0); }
+        button { padding: var(--size-1) var(--size-2); }
       }
     </style>
   </template>
