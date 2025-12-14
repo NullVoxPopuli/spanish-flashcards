@@ -2,215 +2,177 @@ import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { on } from '@ember/modifier';
+import { tracked } from '@glimmer/tracking';
 import { fn } from '@ember/helper';
-import type RouterService from '@ember/routing/router-service';
+import { eq } from 'ember-truth-helpers';
+import { properLinks } from 'ember-primitives/proper-links';
 import type CardProgressService from '#app/services/card-progress.ts';
+import { topics } from '#app/topics/index.ts';
 
+@properLinks
 export default class IndexRoute extends Component {
-  @service declare router: RouterService;
   @service('card-progress') declare cardProgress: CardProgressService;
+  @tracked selectedTopic = 'all';
 
-  @action
-  startQuiz(mode: 'english-to-spanish' | 'spanish-to-english' | 'random'): void {
-    if (mode === 'english-to-spanish') {
-      this.router.transitionTo('quiz-english-to-spanish');
-    } else if (mode === 'spanish-to-english') {
-      this.router.transitionTo('quiz-spanish-to-english');
-    } else {
-      this.router.transitionTo('quiz-random');
-    }
+  get topicOptions() {
+    return [
+      { key: 'all', label: 'Todos / All' },
+      ...Object.keys(topics).map(key => ({
+        key,
+        label: key.charAt(0).toUpperCase() + key.slice(1)
+      }))
+    ];
   }
 
   @action
-  resetProgress(): void {
-    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
-      this.cardProgress.resetProgress();
-    }
+  selectTopic(topic: string) {
+    this.selectedTopic = topic;
+  }
+
+  get quizUrl() {
+    return this.selectedTopic === 'all'
+      ? ''
+      : `?topic=${this.selectedTopic}`;
   }
 
   <template>
-    <div class="home-container">
-      <div class="header">
-        <h1>Spanish Flashcards</h1>
-        <p class="subtitle">Learn Spanish vocabulary and phrases</p>
-      </div>
+    <div class="container">
+      <header class="page-header">
+        <h1 class="page-title">
+          Tarjetas de español
+          <span class="hint-text" style="font-size: var(--font-size-4); font-style: italic; display: block; margin-block-start: var(--size-1);">Spanish Flashcards</span>
+        </h1>
+        <p class="page-subtitle">
+          Aprende vocabulario y frases en español
+          <span class="hint-text" style="font-size: var(--font-size-2); font-style: italic; display: block; margin-block-start: var(--size-1);">Learn Spanish vocabulary and phrases</span>
+        </p>
+      </header>
 
-      <div class="quiz-modes">
-        <h2>Choose Your Quiz Mode</h2>
-        <div class="mode-buttons">
-          <button
-            class="mode-btn"
-            type="button"
-            {{on 'click' (fn this.startQuiz 'english-to-spanish')}}
-          >
-            <div class="mode-icon">EN → ES</div>
-            <h3>English to Spanish</h3>
-            <p>See the English word, recall the Spanish</p>
-          </button>
+      <section class="section">
+        <h2 class="section-title">
+          Elige tu modo de cuestionario
+          <span class="hint-text" style="font-size: var(--font-size-3); font-style: italic; display: block; margin-block-start: var(--size-1);">Choose Your Quiz Mode</span>
+        </h2>
+        <div class="quiz-mode-grid">
+          <a href="/quiz/english-to-spanish{{this.quizUrl}}" class="quiz-mode-card">
+            <div class="quiz-mode-icon">EN → ES</div>
+            <h3 class="quiz-mode-title">
+              Inglés a español
+              <span class="hint-text" style="font-size: var(--font-size-2); font-style: italic; display: block; margin-block-start: var(--size-1);">English to Spanish</span>
+            </h3>
+            <p class="quiz-mode-description">
+              Ve la palabra en inglés, recuerda el español
+              <span class="hint-text" style="font-size: var(--font-size-1); font-style: italic; display: block; margin-block-start: var(--size-1);">See the English word, recall the Spanish</span>
+            </p>
+          </a>
 
-          <button
-            class="mode-btn"
-            type="button"
-            {{on 'click' (fn this.startQuiz 'spanish-to-english')}}
-          >
-            <div class="mode-icon">ES → EN</div>
-            <h3>Spanish to English</h3>
-            <p>See the Spanish word, recall the English</p>
-          </button>
+          <a href="/quiz/spanish-to-english{{this.quizUrl}}" class="quiz-mode-card">
+            <div class="quiz-mode-icon">ES → EN</div>
+            <h3 class="quiz-mode-title">
+              Español a inglés
+              <span class="hint-text" style="font-size: var(--font-size-2); font-style: italic; display: block; margin-block-start: var(--size-1);">Spanish to English</span>
+            </h3>
+            <p class="quiz-mode-description">
+              Ve la palabra en español, recuerda el inglés
+              <span class="hint-text" style="font-size: var(--font-size-1); font-style: italic; display: block; margin-block-start: var(--size-1);">See the Spanish word, recall the English</span>
+            </p>
+          </a>
 
-          <button
-            class="mode-btn"
-            type="button"
-            {{on 'click' (fn this.startQuiz 'random')}}
-          >
-            <div class="mode-icon">↔</div>
-            <h3>Random</h3>
-            <p>Mix it up! Either direction randomly</p>
-          </button>
+          <a href="/quiz/random{{this.quizUrl}}" class="quiz-mode-card">
+            <div class="quiz-mode-icon">↔</div>
+            <h3 class="quiz-mode-title">
+              Aleatorio
+              <span class="hint-text" style="font-size: var(--font-size-2); font-style: italic; display: block; margin-block-start: var(--size-1);">Random</span>
+            </h3>
+            <p class="quiz-mode-description">
+              ¡Mezclalo! Cualquier dirección al azar
+              <span class="hint-text" style="font-size: var(--font-size-1); font-style: italic; display: block; margin-block-start: var(--size-1);">Mix it up! Either direction randomly</span>
+            </p>
+          </a>
         </div>
-      </div>
+      </section>
 
-      <div class="actions">
-        <button
-          class="btn-reset"
-          type="button"
-          {{on 'click' this.resetProgress}}
-        >
-          Reset All Progress
-        </button>
-      </div>
+      <section class="section">
+        <h2 class="section-title">
+          Elige un tema
+          <span class="hint-text" style="font-size: var(--font-size-3); font-style: italic; display: block; margin-block-start: var(--size-1);">Choose a Topic</span>
+        </h2>
+        <div class="topic-buttons">
+          {{#each this.topicOptions as |option|}}
+            <button
+              type="button"
+              class="topic-button {{if (eq this.selectedTopic option.key) 'active'}}"
+              {{on "click" (fn this.selectTopic option.key)}}
+            >
+              {{option.label}}
+            </button>
+          {{/each}}
+        </div>
+      </section>
     </div>
 
     <style scoped>
-      .home-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
+      .container {
+        padding-inline: clamp(var(--size-6), 5vw, var(--size-10));
       }
 
-      .header {
-        text-align: center;
-        margin-bottom: 3rem;
+      .page-title,
+      .section-title {
+        color: var(--gray-9);
       }
 
-      .header h1 {
-        font-size: 3rem;
-        margin: 0;
-        color: #2d3748;
+      .page-subtitle {
+        color: var(--gray-8);
       }
 
-      .subtitle {
-        font-size: 1.25rem;
-        color: #718096;
-        margin-top: 0.5rem;
+      .hint-text {
+        color: var(--gray-7);
+        opacity: 0.85;
       }
 
-      .quiz-modes h2 {
-        text-align: center;
-        color: #2d3748;
-        margin-bottom: 2rem;
+      .topic-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--size-3);
+        margin-block-start: var(--size-4);
       }
 
-      .mode-buttons {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 1.5rem;
-        margin-bottom: 3rem;
-      }
-
-      .mode-btn {
-        background: white;
-        border: 2px solid #e2e8f0;
-        border-radius: 12px;
-        padding: 2rem 1.5rem;
+      .topic-button {
+        padding: var(--size-3) var(--size-5);
+        border: 2px solid var(--gray-6);
+        border-radius: var(--radius-2);
+        background: var(--gray-0);
+        color: var(--gray-9);
+        font-size: var(--font-size-2);
+        font-weight: 500;
         cursor: pointer;
-        transition: all 0.2s;
-        text-align: center;
+        transition: all 0.2s ease;
       }
 
-      .mode-btn:hover {
-        border-color: #4299e1;
-        transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      .topic-button:hover {
+        border-color: var(--blue-6);
+        background: var(--blue-1);
+        color: var(--blue-9);
       }
 
-      .mode-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
+      .topic-button.active {
+        border-color: var(--blue-7);
+        background: var(--blue-6);
+        color: white;
       }
 
-      .mode-btn h3 {
-        margin: 0.5rem 0;
-        color: #2d3748;
-        font-size: 1.25rem;
-      }
-
-      .mode-btn p {
-        margin: 0;
-        color: #718096;
-        font-size: 0.875rem;
-      }
-
-      .actions {
-        text-align: center;
-      }
-
-      .btn-reset {
-        background: transparent;
-        border: 2px solid #e2e8f0;
-        color: #718096;
-        padding: 0.75rem 1.5rem;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 0.875rem;
-        transition: all 0.2s;
-      }
-
-      .btn-reset:hover {
-        border-color: #f56565;
-        color: #f56565;
-      }
-
-      @media (max-width: 640px) {
-        .home-container {
-          padding: 1rem;
-        }
-
-        .header {
-          margin-bottom: 2rem;
-        }
-
-        .header h1 {
-          font-size: 2rem;
-        }
-
-        .subtitle {
-          font-size: 1rem;
-        }
-
-        .quiz-modes h2 {
-          font-size: 1.25rem;
-          margin-bottom: 1rem;
-        }
-
-        .mode-buttons {
-          grid-template-columns: 1fr;
-          gap: 1rem;
-          margin-bottom: 2rem;
-        }
-
-        .mode-btn {
-          padding: 1.5rem 1rem;
-        }
-
-        .mode-icon {
-          font-size: 2rem;
-          margin-bottom: 0.5rem;
-        }
-
-        .mode-btn h3 {
-          font-size: 1.125rem;
-        }
+      @media (width <= 640px) {
+        .page-header { margin-block-end: var(--size-5); }
+        .page-title { font-size: var(--font-size-5); }
+        .page-subtitle { font-size: var(--font-size-2); }
+        .section { margin-block-end: var(--size-5); }
+        .section-title { font-size: var(--font-size-3); margin-block-end: var(--size-3); }
+        .quiz-mode-grid { grid-template-columns: 1fr; gap: var(--size-3); }
+        .quiz-mode-card { padding: var(--size-6) var(--size-3); }
+        .quiz-mode-icon { font-size: var(--font-size-5); margin-block-end: var(--size-2); }
+        .quiz-mode-title { font-size: var(--font-size-2); }
+        .topic-buttons { gap: var(--size-2); }
+        .topic-button { padding: var(--size-2) var(--size-4); font-size: var(--font-size-1); }
       }
     </style>
   </template>

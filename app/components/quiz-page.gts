@@ -5,7 +5,7 @@ import { action } from '@ember/object';
 import type RouterService from '@ember/routing/router-service';
 import type CardProgressService from '#app/services/card-progress.ts';
 import cards from '#app/spanish.ts';
-import type { Card } from '#app/types.ts';
+import type { Card } from '#app/topics/types.ts';
 import Flashcard from '#app/components/flashcard.gts';
 import QuizHeader from '#app/components/quiz-header.gts';
 import QuizCompletion from '#app/components/quiz-completion.gts';
@@ -35,7 +35,7 @@ export default class QuizPage extends Component<QuizPageSignature> {
 
     if (unlearnedCards.length === 0) {
       // If all cards are learned, use all cards
-      this.initialQuizCards = cards.map((_, index) => index);
+      this.initialQuizCards = cards.map((_: Card, index: number) => index);
     } else {
       this.initialQuizCards = unlearnedCards;
     }
@@ -188,24 +188,22 @@ export default class QuizPage extends Component<QuizPageSignature> {
 
     <style scoped>
       .quiz-container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
+        padding: var(--size-5);
       }
 
-      @media (max-width: 640px) {
+      @media (width <= 640px) {
         .quiz-container {
           padding: 0;
-          height: 100vh;
+          block-size: 100vh;
           display: flex;
           flex-direction: column;
           overflow: hidden;
         }
       }
 
-      @media (max-height: 500px) {
+      @media (height <= 500px) {
         .quiz-container {
-          padding: 0.25rem;
+          padding: var(--size-1);
         }
       }
     </style>
