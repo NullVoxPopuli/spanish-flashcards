@@ -1,9 +1,16 @@
 <template>
-  <div style="max-inline-size: var(--size-content-3); margin-inline: auto; padding: var(--size-5);">
+  <div>
     {{outlet}}
   </div>
 
   <style scoped>
+    @media (width > 640px) {
+      div {
+        max-inline-size: 700px;
+        margin-inline: auto;
+      }
+    }
+
     @media (width <= 640px) {
       div {
         padding: 0;

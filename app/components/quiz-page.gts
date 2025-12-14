@@ -188,8 +188,6 @@ export default class QuizPage extends Component<QuizPageSignature> {
 
     <style scoped>
       .quiz-container {
-        max-inline-size: var(--size-content-3);
-        margin-inline: auto;
         padding: var(--size-5);
       }
 

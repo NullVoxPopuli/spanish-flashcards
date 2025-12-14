@@ -91,7 +91,7 @@ export default class FlippableCard extends Component<FlippableCardSignature> {
         align-items: center;
         justify-content: center;
         gap: clamp(var(--size-3), 3vh, var(--size-6));
-        padding: clamp(var(--size-2), 2vh, var(--size-5));
+        padding-block: clamp(var(--size-2), 2vh, var(--size-5));
         inline-size: 100%;
         block-size: 100%;
         max-inline-size: 100vw;
@@ -99,7 +99,7 @@ export default class FlippableCard extends Component<FlippableCardSignature> {
       }
 
       .flashcard {
-        inline-size: min(90vw, 600px);
+        inline-size: 100%;
         block-size: min(50vh, 400px);
         perspective: 1000px;
         cursor: pointer;
@@ -195,7 +195,6 @@ export default class FlippableCard extends Component<FlippableCardSignature> {
         gap: clamp(var(--size-2), 2vw, var(--size-4));
         justify-content: center;
         inline-size: 100%;
-        max-inline-size: min(90vw, 800px);
       }
 
       .btn {
@@ -212,7 +211,6 @@ export default class FlippableCard extends Component<FlippableCardSignature> {
         box-shadow: var(--shadow-2);
         flex: 1;
         min-inline-size: min(100px, 20vw);
-        max-inline-size: 200px;
       }
 
       .btn:hover {
@@ -271,7 +269,6 @@ export default class FlippableCard extends Component<FlippableCardSignature> {
       }
 
       @media (width <= 640px) {
-        .flashcard { inline-size: 95vw; }
         .card-actions { gap: var(--size-2); }
       }
 
