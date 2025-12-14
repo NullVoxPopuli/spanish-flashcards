@@ -12,39 +12,81 @@ export default class IndexRoute extends Component {
   <template>
     <div class="container">
       <header class="page-header">
-        <h1 class="page-title">Spanish Flashcards</h1>
+        <h1 class="page-title">
+          Tarjetas de español
+          <span class="hint-text" style="font-size: var(--font-size-4); font-style: italic; display: block; margin-block-start: var(--size-1);">Spanish Flashcards</span>
+        </h1>
         <p class="page-subtitle">
-          Learn Spanish vocabulary and phrases
+          Aprende vocabulario y frases en español
+          <span class="hint-text" style="font-size: var(--font-size-2); font-style: italic; display: block; margin-block-start: var(--size-1);">Learn Spanish vocabulary and phrases</span>
         </p>
       </header>
 
       <section class="section">
-        <h2 class="section-title">Choose Your Quiz Mode</h2>
+        <h2 class="section-title">
+          Elige tu modo de cuestionario
+          <span class="hint-text" style="font-size: var(--font-size-3); font-style: italic; display: block; margin-block-start: var(--size-1);">Choose Your Quiz Mode</span>
+        </h2>
         <div class="quiz-mode-grid">
           <a href="/quiz/english-to-spanish" class="quiz-mode-card">
             <div class="quiz-mode-icon">EN → ES</div>
-            <h3 class="quiz-mode-title">English to Spanish</h3>
-            <p class="quiz-mode-description">See the English word, recall the Spanish</p>
+            <h3 class="quiz-mode-title">
+              Inglés a español
+              <span class="hint-text" style="font-size: var(--font-size-2); font-style: italic; display: block; margin-block-start: var(--size-1);">English to Spanish</span>
+            </h3>
+            <p class="quiz-mode-description">
+              Ve la palabra en inglés, recuerda el español
+              <span class="hint-text" style="font-size: var(--font-size-1); font-style: italic; display: block; margin-block-start: var(--size-1);">See the English word, recall the Spanish</span>
+            </p>
           </a>
 
           <a href="/quiz/spanish-to-english" class="quiz-mode-card">
             <div class="quiz-mode-icon">ES → EN</div>
-            <h3 class="quiz-mode-title">Spanish to English</h3>
-            <p class="quiz-mode-description">See the Spanish word, recall the English</p>
+            <h3 class="quiz-mode-title">
+              Español a inglés
+              <span class="hint-text" style="font-size: var(--font-size-2); font-style: italic; display: block; margin-block-start: var(--size-1);">Spanish to English</span>
+            </h3>
+            <p class="quiz-mode-description">
+              Ve la palabra en español, recuerda el inglés
+              <span class="hint-text" style="font-size: var(--font-size-1); font-style: italic; display: block; margin-block-start: var(--size-1);">See the Spanish word, recall the English</span>
+            </p>
           </a>
 
           <a href="/quiz/random" class="quiz-mode-card">
             <div class="quiz-mode-icon">↔</div>
-            <h3 class="quiz-mode-title">Random</h3>
-            <p class="quiz-mode-description">Mix it up! Either direction randomly</p>
+            <h3 class="quiz-mode-title">
+              Aleatorio
+              <span class="hint-text" style="font-size: var(--font-size-2); font-style: italic; display: block; margin-block-start: var(--size-1);">Random</span>
+            </h3>
+            <p class="quiz-mode-description">
+              ¡Mezclalo! Cualquier dirección al azar
+              <span class="hint-text" style="font-size: var(--font-size-1); font-style: italic; display: block; margin-block-start: var(--size-1);">Mix it up! Either direction randomly</span>
+            </p>
           </a>
         </div>
       </section>
     </div>
 
     <style scoped>
+      .container {
+        padding-inline: clamp(var(--size-6), 5vw, var(--size-10));
+      }
+
+      .page-title,
+      .section-title {
+        color: var(--gray-9);
+      }
+
+      .page-subtitle {
+        color: var(--gray-8);
+      }
+
+      .hint-text {
+        color: var(--gray-7);
+        opacity: 0.85;
+      }
+
       @media (width <= 640px) {
-        .container { padding: var(--size-3); }
         .page-header { margin-block-end: var(--size-5); }
         .page-title { font-size: var(--font-size-5); }
         .page-subtitle { font-size: var(--font-size-2); }

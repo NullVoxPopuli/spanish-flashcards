@@ -4,7 +4,8 @@
 .container {
   max-inline-size: var(--size-content-3);
   margin-inline: auto;
-  padding: var(--size-3) var(--size-5);
+  padding-block: var(--size-3);
+  padding-inline: clamp(var(--size-6), 5vw, var(--size-10));
 }
 
 .text-center {

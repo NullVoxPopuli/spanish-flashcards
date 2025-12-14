@@ -18,9 +18,13 @@ export default class QuizCompletion extends Component<QuizCompletionSignature> {
   <template>
     <div class="card completion-card">
       <div class="completion-icon">🎉</div>
-      <h1>Quiz Complete!</h1>
+      <h1>
+        ¡Cuestionario completo!
+        <div style="font-size: var(--font-size-3); opacity: 0.7; font-style: italic; margin-block-start: var(--size-1);">Quiz Complete!</div>
+      </h1>
       <p class="completion-message">
-        Great job! You've reviewed all the unlearned cards in this session.
+        ¡Buen trabajo! Has revisado todas las tarjetas no aprendidas en esta sesión.
+        <span style="font-size: var(--font-size-1); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">Great job! You've reviewed all the unlearned cards in this session.</span>
         {{#if this.isFullyLearned}}
           <br /><strong>Congratulations! You've learned all cards!</strong>
         {{else}}
@@ -33,7 +37,8 @@ export default class QuizCompletion extends Component<QuizCompletionSignature> {
             {{@cardProgress.learnedCount}}
           </div>
           <div class="stat-label">
-            Cards Learned
+            Tarjetas aprendidas
+            <div style="font-size: var(--font-size-0); opacity: 0.7; font-style: italic;">Cards Learned</div>
           </div>
         </div>
         <div class="stat-item">
@@ -41,16 +46,19 @@ export default class QuizCompletion extends Component<QuizCompletionSignature> {
             {{@cardProgress.progressPercentage}}%
           </div>
           <div class="stat-label">
-            Overall Progress
+            Progreso total
+            <div style="font-size: var(--font-size-0); opacity: 0.7; font-style: italic;">Overall Progress</div>
           </div>
         </div>
       </div>
       <div class="button-group">
-        <button class="btn btn-primary" type="button" {{on 'click' @onRestart}}>
-          Quiz Again
+        <button class="btn btn-primary" type="button" {{on 'click' @onRestart}} style="display: flex; flex-direction: column; gap: var(--size-1);">
+          <span>Repetir cuestionario</span>
+          <span style="font-size: var(--font-size-1); opacity: 0.75; font-style: italic;">Quiz Again</span>
         </button>
-        <button class="btn btn-secondary" type="button" {{on 'click' @onReturnHome}}>
-          Return Home
+        <button class="btn btn-secondary" type="button" {{on 'click' @onReturnHome}} style="display: flex; flex-direction: column; gap: var(--size-1);">
+          <span>Volver al inicio</span>
+          <span style="font-size: var(--font-size-1); opacity: 0.75; font-style: italic;">Return Home</span>
         </button>
       </div>
     </div>

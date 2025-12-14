@@ -13,42 +13,71 @@ export default class HomePage extends Component {
   <template>
     <div class="container">
       <header class="page-header">
-        <h1 class="page-title">Spanish Flashcards</h1>
+        <h1 class="page-title">
+          Tarjetas de español
+          <span style="font-size: var(--font-size-4); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">Spanish Flashcards</span>
+        </h1>
         <p class="page-subtitle">
-          Master your Spanish vocabulary and phrases
+          Domina tu vocabulario y frases en español
+          <span style="font-size: var(--font-size-2); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">Master your Spanish vocabulary and phrases</span>
         </p>
       </header>
 
       <div class="progress-card">
-        <h2>Your Progress</h2>
+        <h2>
+          Tu progreso
+          <span style="font-size: var(--font-size-2); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">Your Progress</span>
+        </h2>
         <div class="progress-bar">
           <div class="progress-bar-fill" style="inline-size: {{this.cardProgress.progressPercentage}}%;"></div>
         </div>
         <p class="progress-text">
-          {{this.cardProgress.masteredCount}} / {{this.cardProgress.totalCards}} cards mastered
+          {{this.cardProgress.learnedCount}} / {{this.cardProgress.totalCards}} tarjetas dominadas
           ({{this.cardProgress.progressPercentage}}%)
+          <span style="font-size: var(--font-size-1); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">cards mastered</span>
         </p>
       </div>
 
       <section class="section">
-        <h2 class="section-title">Choose Your Quiz Mode</h2>
+        <h2 class="section-title">
+          Elige tu modo de cuestionario
+          <span style="font-size: var(--font-size-3); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">Choose Your Quiz Mode</span>
+        </h2>
         <div class="quiz-mode-grid">
           <LinkTo @route="quiz" @model="english-to-spanish" class="quiz-mode-card">
             <div class="quiz-mode-icon">🇺🇸 → 🇪🇸</div>
-            <h3 class="quiz-mode-title">English to Spanish</h3>
-            <p class="quiz-mode-description">See the English word, recall the Spanish</p>
+            <h3 class="quiz-mode-title">
+              Inglés a español
+              <span style="font-size: var(--font-size-2); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">English to Spanish</span>
+            </h3>
+            <p class="quiz-mode-description">
+              Ve la palabra en inglés, recuerda el español
+              <span style="font-size: var(--font-size-1); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">See the English word, recall the Spanish</span>
+            </p>
           </LinkTo>
 
           <LinkTo @route="quiz" @model="spanish-to-english" class="quiz-mode-card">
             <div class="quiz-mode-icon">🇪🇸 → 🇺🇸</div>
-            <h3 class="quiz-mode-title">Spanish to English</h3>
-            <p class="quiz-mode-description">See the Spanish word, recall the English</p>
+            <h3 class="quiz-mode-title">
+              Español a inglés
+              <span style="font-size: var(--font-size-2); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">Spanish to English</span>
+            </h3>
+            <p class="quiz-mode-description">
+              Ve la palabra en español, recuerda el inglés
+              <span style="font-size: var(--font-size-1); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">See the Spanish word, recall the English</span>
+            </p>
           </LinkTo>
 
           <LinkTo @route="quiz" @model="random" class="quiz-mode-card">
             <div class="quiz-mode-icon">🔀</div>
-            <h3 class="quiz-mode-title">Random</h3>
-            <p class="quiz-mode-description">Mix it up! Either direction randomly</p>
+            <h3 class="quiz-mode-title">
+              Aleatorio
+              <span style="font-size: var(--font-size-2); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">Random</span>
+            </h3>
+            <p class="quiz-mode-description">
+              ¡Mezclalo! Cualquier dirección al azar
+              <span style="font-size: var(--font-size-1); opacity: 0.7; font-style: italic; display: block; margin-block-start: var(--size-1);">Mix it up! Either direction randomly</span>
+            </p>
           </LinkTo>
         </div>
       </section>

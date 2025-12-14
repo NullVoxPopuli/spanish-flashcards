@@ -24,9 +24,10 @@ export default class QuizHeader extends Component<QuizHeaderSignature> {
       <button
         type="button"
         {{on 'click' @onBack}}
-        style="background: transparent; border: none; color: var(--gray-8); font-size: var(--font-size-2); cursor: pointer; padding: var(--size-2);"
+        style="background: transparent; border: none; color: var(--gray-8); font-size: var(--font-size-2); cursor: pointer; padding: var(--size-2); display: flex; flex-direction: column; align-items: center; gap: 2px;"
       >
-        ← Back
+        <span>← Volver</span>
+        <span style="font-size: var(--font-size-0); opacity: 0.7; font-style: italic;">Back</span>
       </button>
       <div style="font-size: var(--font-size-2); font-weight: var(--font-weight-6); color: var(--gray-9);">
         {{this.modeLabel}}
